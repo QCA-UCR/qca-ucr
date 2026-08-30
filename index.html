@@ -1076,6 +1076,251 @@
                 transform: none;
             }
         }
+
+        /* ---------- BLOCH INTERACTIVE (improved sphere) ---------- */
+        .pillar-bloch-host {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 206px;
+            height: 206px;
+            margin: 0 auto 1rem;
+        }
+        .pillar-bloch-host svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        #bloch-demo {
+            padding-top: 4.5rem;
+        }
+        .bloch-intro { text-align: center; margin-bottom: 2.5rem; }
+        .bloch-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(167,139,250,0.25);
+            background: rgba(124,58,237,0.10);
+            color: #ddd6fe;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            margin-bottom: 1.2rem;
+        }
+        .bloch-badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #67e8f9;
+            box-shadow: 0 0 10px 2px rgba(103,232,249,0.8);
+            flex-shrink: 0;
+        }
+        .bloch-title {
+            font-size: clamp(2.0rem, 5vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #fff 15%, #e9d5ff 45%, #a5f3fc 85%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.9rem;
+        }
+        .bloch-subtitle {
+            max-width: 640px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .bloch-subtitle code {
+            font-family: ui-monospace, SFMono-Regular, 'JetBrains Mono', monospace;
+            color: #c4b5fd;
+            font-size: 0.9em;
+        }
+        .bloch-subtitle code.pink { color: #f9a8d4; }
+        .bloch-layout {
+            display: grid;
+            gap: 1.5rem;
+            align-items: start;
+        }
+        @media (min-width: 1024px) {
+            .bloch-layout { grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); }
+        }
+        .bloch-card {
+            position: relative;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.035);
+            box-shadow: 0 20px 60px -25px rgba(76,29,149,0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1.25rem;
+            overflow: hidden;
+        }
+        @media (min-width: 640px) { .bloch-card { padding: 1.75rem; } }
+        .bloch-card::before {
+            content:'';
+            position: absolute;
+            left: 2rem; right: 2rem; top: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(167,139,250,0.6), transparent);
+            pointer-events: none;
+        }
+        .bloch-card-blobs {
+            position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 24px;
+        }
+        .bloch-blob {
+            position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.35;
+        }
+        .bloch-blob.violet { width: 260px; height: 260px; background: rgba(124,58,237,0.18); top: -60px; left: -60px; }
+        .bloch-blob.cyan   { width: 220px; height: 220px; background: rgba(6,182,212,0.12); top: 40%; right: -40px; }
+        .bloch-sphere-wrap {
+            position: relative;
+            aspect-ratio: 1;
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+        .bloch-sphere-wrap svg { width: 100%; height: 100%; display: block; }
+        .bloch-controls-row {
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
+            justify-content: center;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding-top: 1.25rem;
+            margin-top: 1.25rem;
+        }
+        .bloch-toggle {
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.03);
+            color: #94a3b8;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.70rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .bloch-toggle:hover { border-color: rgba(255,255,255,0.20); color: #e2e8f0; }
+        .bloch-toggle.active {
+            border-color: rgba(167,139,250,0.5);
+            background: rgba(139,92,246,0.20);
+            color: #ede9fe;
+            box-shadow: 0 0 18px -4px rgba(167,139,250,0.9);
+        }
+        .bloch-panel {
+            position: relative;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.035);
+            box-shadow: 0 20px 60px -25px rgba(76,29,149,0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        .bloch-panel::before {
+            content:''; position:absolute; left:2rem; right:2rem; top:0; height:1px;
+            background: linear-gradient(90deg, transparent, rgba(167,139,250,0.55), transparent);
+            pointer-events:none;
+        }
+        .bloch-section-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 0.85rem;
+        }
+        .bloch-slider-row { margin-bottom: 1.1rem; }
+        .bloch-slider-head {
+            display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.45rem;
+        }
+        .bloch-slider-label { font-family: ui-monospace, monospace; font-size: 0.85rem; }
+        .bloch-slider-label.violet { color: #c4b5fd; }
+        .bloch-slider-label.pink { color: #f9a8d4; }
+        .bloch-slider-hint { font-size: 0.68rem; color: #64748b; }
+        input[type="range"].bloch-range {
+            -webkit-appearance: none; appearance: none;
+            width: 100%; height: 4px; border-radius: 9999px;
+            background: linear-gradient(90deg, rgba(167,139,250,0.9), rgba(34,211,238,0.55));
+            outline: none; display: block;
+        }
+        input[type="range"].bloch-range::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: #ede9fe; border: 2px solid #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124,58,237,0.18), 0 2px 8px rgba(0,0,0,0.5);
+            cursor: grab; transition: transform 0.15s;
+        }
+        input[type="range"].bloch-range::-webkit-slider-thumb:active { transform: scale(1.15); cursor: grabbing; }
+        input[type="range"].bloch-range::-moz-range-thumb {
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #ede9fe; border: 2px solid #7c3aed; cursor: grab;
+        }
+        .bloch-pillrow { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .bloch-pill {
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.03);
+            color: #cbd5e1; padding: 0.35rem 0.75rem;
+            font-size: 0.78rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .bloch-pill:hover { border-color: rgba(167,139,250,0.40); background: rgba(139,92,246,0.10); color: #ede9fe; }
+        .bloch-pill.active {
+            border-color: rgba(103,232,249,0.5);
+            background: rgba(34,211,238,0.15);
+            color: #ecfeff;
+            box-shadow: 0 0 18px -4px rgba(34,211,238,0.8);
+        }
+        .bloch-ket {
+            border: 1px solid rgba(167,139,250,0.15);
+            background: rgba(0,0,0,0.30);
+            border-radius: 16px;
+            padding: 0.85rem 1rem;
+            font-family: ui-monospace, monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+        .bloch-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-top: 1rem; }
+        .bloch-stat {
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: rgba(0,0,0,0.25);
+            padding: 0.55rem 0.7rem;
+        }
+        .bloch-stat-label { font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b; }
+        .bloch-stat-value { font-family: ui-monospace, monospace; font-size: 0.85rem; color: #f1f5f9; }
+        .bloch-stat-value.cyan { color: #a5f3fc; }
+        .bloch-stat-value.pink { color: #fbcfe8; }
+        .bloch-stat-value.violet { color: #ddd6fe; }
+        .bloch-bars { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.85rem; }
+        .bloch-bar-head { display: flex; justify-content: space-between; font-family: ui-monospace, monospace; font-size: 0.72rem; }
+        .bloch-bar-head span:first-child { color: #94a3b8; }
+        .bloch-bar-head span:last-child { color: #f1f5f9; }
+        .bloch-bar-track { height: 6px; border-radius: 9999px; background: rgba(255,255,255,0.06); overflow: hidden; }
+        .bloch-bar-fill { height: 100%; border-radius: 9999px; transition: width 0.15s; }
+        .bloch-bar-fill.violet { background: linear-gradient(90deg, #8b5cf6, #c4b5fd); }
+        .bloch-bar-fill.cyan { background: linear-gradient(90deg, #06b6d4, #a5f3fc); }
+        .bloch-footnote { margin-top: 0.9rem; font-size: 0.68rem; line-height: 1.6; color: #64748b; }
+        .bloch-footnote code { font-family: ui-monospace, monospace; color: #cbd5e1; }
+
+        @keyframes bloch-drift {
+            0%,100% { transform: translate3d(0,0,0) scale(1); opacity: 0.55; }
+            50% { transform: translate3d(0,-10px,0) scale(1.04); opacity: 0.8; }
+        }
+        @keyframes bloch-pulse {
+            0%,100% { opacity: 0.25; }
+            50% { opacity: 0.70; }
+        }
+        .animate-bloch-pulse { animation: bloch-pulse 3.2s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+            .animate-bloch-pulse { animation: none; }
+        }
     </style>
 </head>
 
@@ -1125,98 +1370,7 @@
                 <!-- Pillar 1: QEC -->
                 <div class="pillar-card pillar-qec">
                     <h3>Quantum Error Correction</h3>
-                    <div class="pillar-icon-centered">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="206" height="206"
-                            role="img" aria-label="Esfera de Bloch — representación de un estado cuántico"
-                            style="overflow:visible;">
-                            <defs>
-                                <!-- Aura exterior detrás de la esfera -->
-                                <radialGradient id="sphereGlow" cx="40%" cy="35%" r="55%">
-                                    <stop offset="0%" stop-color="rgba(167,139,250,0.15)" />
-                                    <stop offset="100%" stop-color="rgba(167,139,250,0)" />
-                                </radialGradient>
-                                <!-- Iluminación de superficie: luz desde arriba-izquierda -->
-                                <radialGradient id="sphereLight" cx="35%" cy="30%" r="68%" fx="25%" fy="22%">
-                                    <stop offset="0%"   stop-color="rgba(196,181,253,0.22)" />
-                                    <stop offset="30%"  stop-color="rgba(167,139,250,0.06)" />
-                                    <stop offset="75%"  stop-color="rgba(10,20,60,0.18)" />
-                                    <stop offset="100%" stop-color="rgba(5,10,40,0.40)" />
-                                </radialGradient>
-                                <!-- Blur para el highlight especular -->
-                                <filter id="specBlur" x="-100%" y="-100%" width="300%" height="300%">
-                                    <feGaussianBlur stdDeviation="5" />
-                                </filter>
-                                <!-- Glow del vector de estado -->
-                                <filter id="blochGlow">
-                                    <feGaussianBlur stdDeviation="2" result="blur" />
-                                    <feMerge>
-                                        <feMergeNode in="blur" />
-                                        <feMergeNode in="SourceGraphic" />
-                                    </feMerge>
-                                </filter>
-                            </defs>
-
-                            <!-- Aura exterior -->
-                            <circle cx="100" cy="100" r="74" fill="url(#sphereGlow)" />
-
-                            <!-- Cuerpo de la esfera: relleno con gradiente de iluminación 3D -->
-                            <circle cx="100" cy="100" r="64" fill="url(#sphereLight)" />
-
-                            <!-- Borde de la esfera -->
-                            <circle cx="100" cy="100" r="64" fill="none"
-                                stroke="rgba(167,139,250,0.35)" stroke-width="1.5" />
-
-                            <!-- Meridiano trasero (plano Y-Z) — muy tenue, "detrás" -->
-                            <ellipse cx="100" cy="100" rx="20" ry="64" fill="none"
-                                stroke="rgba(167,139,250,0.07)" stroke-width="1.0" stroke-dasharray="3 5" />
-
-                            <!-- Ecuador — orbitando, sugiere profundidad -->
-                            <ellipse cx="100" cy="100" rx="64" ry="18" fill="none"
-                                stroke="rgba(167,139,250,0.22)" stroke-width="1.2" stroke-dasharray="4 3">
-                                <animateTransform attributeName="transform" type="rotate"
-                                    values="0 100 100;360 100 100" dur="30s" repeatCount="indefinite" />
-                            </ellipse>
-
-                            <!-- Eje Z: mitad inferior (detrás del ecuador) — discontinua, tenue -->
-                            <line x1="100" y1="100" x2="100" y2="170"
-                                stroke="rgba(167,139,250,0.10)" stroke-width="1.0" stroke-dasharray="3 4" />
-                            <!-- Eje Z: mitad superior (frente al ecuador) — sólida, visible -->
-                            <line x1="100" y1="30" x2="100" y2="100"
-                                stroke="rgba(167,139,250,0.30)" stroke-width="1.0" />
-
-                            <!-- Eje X -->
-                            <line x1="38" y1="100" x2="162" y2="100"
-                                stroke="rgba(167,139,250,0.12)" stroke-width="1.0" />
-
-                            <!-- Highlight especular: brillo difuso arriba-izquierda -->
-                            <ellipse cx="80" cy="75" rx="22" ry="15"
-                                fill="rgba(200,228,255,0.13)" filter="url(#specBlur)" />
-
-                            <!-- Vector de estado |ψ⟩ rotando -->
-                            <g>
-                                <animateTransform attributeName="transform" type="rotate"
-                                    values="0 100 100;360 100 100" dur="12s" repeatCount="indefinite" />
-                                <line x1="100" y1="100" x2="135" y2="52" stroke="#a78bfa"
-                                    stroke-width="1.8" filter="url(#blochGlow)" stroke-linecap="round" />
-                                <polygon points="135,52 128,60 138,59" fill="#a78bfa" filter="url(#blochGlow)" />
-                                <circle cx="135" cy="52" r="3" fill="#c4b5fd" filter="url(#blochGlow)">
-                                    <animate attributeName="r" values="3;4;3" dur="2.5s" repeatCount="indefinite" />
-                                    <animate attributeName="opacity" values="1;0.7;1" dur="2.5s" repeatCount="indefinite" />
-                                </circle>
-                                <text x="140" y="48" fill="#c4b5fd" font-size="11" font-family="serif"
-                                    font-style="italic" filter="url(#blochGlow)">|ψ⟩
-                                    <animateTransform attributeName="transform" type="rotate"
-                                        values="0 140 48;-360 140 48" dur="12s" repeatCount="indefinite" />
-                                </text>
-                            </g>
-
-                            <!-- Etiquetas de polos -->
-                            <text x="100" y="24" fill="rgba(148,163,184,0.8)" font-size="11"
-                                font-family="serif" font-style="italic" text-anchor="middle">|0⟩</text>
-                            <text x="100" y="184" fill="rgba(148,163,184,0.8)" font-size="11"
-                                font-family="serif" font-style="italic" text-anchor="middle">|1⟩</text>
-                        </svg>
-                    </div>
+                    <div class="pillar-bloch-host" id="pillarBlochHost" aria-label="Esfera de Bloch interactiva miniatura" role="img"></div>
                     <p>Diseño y análisis de códigos cuánticos tolerantes a fallos —incluyendo surface codes, códigos
                         Bacon-Shor y arquitecturas de spin-qubit— para procesadores de iones atrapados y plataformas
                         escalables. Estudio del impacto del ruido cuántico coherente e incoherente, métodos de
@@ -1545,6 +1699,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer>
@@ -1847,6 +2002,494 @@
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
         })();
+    </script>
+
+    <!-- Bloch interactive — ported from improve-bloch-sphere-design/src/lib/bloch.ts + BlochSphere.tsx (vanilla) -->
+    <script>
+    (function(){
+        const TAU = Math.PI * 2;
+        const DEG = Math.PI / 180;
+        const ELEVATION = 26 * DEG;
+        const AZIMUTH = 40 * DEG;
+        const CAMERA = {
+            x: Math.cos(ELEVATION) * Math.sin(AZIMUTH),
+            y: Math.cos(ELEVATION) * Math.cos(AZIMUTH),
+            z: Math.sin(ELEVATION)
+        };
+        const dot = (a,b)=> a.x*b.x + a.y*b.y + a.z*b.z;
+        const cross = (a,b)=> ({ x: a.y*b.z - a.z*b.y, y: a.z*b.x - a.x*b.z, z: a.x*b.y - a.y*b.x });
+        const normalize = (v)=> { const l=Math.hypot(v.x,v.y,v.z)||1; return {x:v.x/l,y:v.y/l,z:v.z/l}; };
+        const scaleV = (v,s)=> ({x:v.x*s,y:v.y*s,z:v.z*s});
+        const addV = (a,b)=> ({x:a.x+b.x,y:a.y+b.y,z:a.z+b.z});
+        const RIGHT = normalize(cross(CAMERA,{x:0,y:0,z:1}));
+        const UP = cross(RIGHT, CAMERA);
+        const VB = 320, CX = VB/2, CY = VB/2, R = 100;
+        const X_HAT = {x:1,y:0,z:0}, Y_HAT={x:0,y:1,z:0}, Z_HAT={x:0,y:0,z:1};
+
+        function project(p, R_, cx, cy){
+            return { x: cx + R_*dot(p,RIGHT), y: cy - R_*dot(p,UP), depth: dot(p,CAMERA) };
+        }
+        function unproject(sx,sy,R_,cx,cy){
+            const a=(sx-cx)/R_, b=-(sy-cy)/R_;
+            const rr=a*a+b*b;
+            const w=Math.sqrt(Math.max(0,1-rr));
+            const k= rr>1 ? 1/Math.sqrt(rr) : 1;
+            const a2=a*k, b2=b*k;
+            return { x: a2*RIGHT.x + b2*UP.x + w*CAMERA.x, y: a2*RIGHT.y + b2*UP.y + w*CAMERA.y, z: a2*RIGHT.z + b2*UP.z + w*CAMERA.z };
+        }
+        function blochVector(theta,phi){ return {x: Math.sin(theta)*Math.cos(phi), y: Math.sin(theta)*Math.sin(phi), z: Math.cos(theta)}; }
+        function anglesFromVector(v){ const n=normalize(v); const theta=Math.acos(Math.max(-1,Math.min(1,n.z))); let phi=Math.atan2(n.y,n.x); if(phi<0)phi+=TAU; return {theta,phi}; }
+        function rotateAbout(v,axis,angle){
+            const k=normalize(axis); const c=Math.cos(angle), s=Math.sin(angle);
+            const kx=cross(k,v); const kd=dot(k,v);
+            return { x: v.x*c + kx.x*s + k.x*kd*(1-c), y: v.y*c + kx.y*s + k.y*kd*(1-c), z: v.z*c + kx.z*s + k.z*kd*(1-c) };
+        }
+        const GATES = {
+            X:{axis:{x:1,y:0,z:0}, angle:Math.PI}, Y:{axis:{x:0,y:1,z:0}, angle:Math.PI}, Z:{axis:{x:0,y:0,z:1}, angle:Math.PI},
+            H:{axis:{x:1,y:0,z:1}, angle:Math.PI}, S:{axis:{x:0,y:0,z:1}, angle:Math.PI/2}, T:{axis:{x:0,y:0,z:1}, angle:Math.PI/4}
+        };
+        function sampleLatitude(theta, steps=96){
+            const pts=[]; const r=Math.sin(theta), z=Math.cos(theta);
+            for(let i=0;i<=steps;i++){ const a=(i/steps)*TAU; pts.push({x:r*Math.cos(a), y:r*Math.sin(a), z}); }
+            return pts;
+        }
+        function sampleMeridian(phi, steps=96){
+            const pts=[];
+            for(let i=0;i<=steps;i++){ const t=(i/steps)*Math.PI; pts.push({x:Math.sin(t)*Math.cos(phi), y:Math.sin(t)*Math.sin(phi), z:Math.cos(t)}); }
+            return pts;
+        }
+        function sampleArc(from,to,radius,steps=48){
+            const a=normalize(from), b=normalize(to);
+            const omega=Math.acos(Math.max(-1,Math.min(1,dot(a,b))));
+            if(omega<1e-6) return [scaleV(a,radius)];
+            const s=Math.sin(omega); const pts=[];
+            for(let i=0;i<=steps;i++){ const t=i/steps; const k1=Math.sin((1-t)*omega)/s, k2=Math.sin(t*omega)/s; pts.push(scaleV(addV(scaleV(a,k1),scaleV(b,k2)),radius)); }
+            return pts;
+        }
+        function sampleSegment(a,b,steps=32){
+            const pts=[];
+            for(let i=0;i<=steps;i++){ const t=i/steps; pts.push({x:a.x+(b.x-a.x)*t, y:a.y+(b.y-a.y)*t, z:a.z+(b.z-a.z)*t}); }
+            return pts;
+        }
+        const f = (n)=> Math.round(n*100)/100;
+        function toPath(points,R_,cx,cy){
+            if(!points.length) return "";
+            const pts=points.map(p=> project(p,R_,cx,cy));
+            return `M ${f(pts[0].x)} ${f(pts[0].y)} ` + pts.slice(1).map(p=> `L ${f(p.x)} ${f(p.y)}`).join(" ");
+        }
+        function tracePath(points,R_,cx,cy,closed=false){
+            if(points.length<2) return {front:[],back:[]};
+            const pts=points.map(p=> project(p,R_,cx,cy));
+            if(closed) pts.push(pts[0]);
+            const front=[], back=[];
+            let run=[pts[0]]; let runFront=pts[0].depth>=0;
+            const flush=(list,isFront)=>{
+                if(list.length<2) return;
+                const d=`M ${f(list[0].x)} ${f(list[0].y)} ` + list.slice(1).map(p=> `L ${f(p.x)} ${f(p.y)}`).join(" ");
+                (isFront?front:back).push(d);
+            };
+            for(let i=1;i<pts.length;i++){
+                const p=pts[i]; const isFront=p.depth>=0;
+                if(isFront!==runFront){ run.push(p); flush(run,runFront); run=[pts[i-1],p]; runFront=isFront; } else run.push(p);
+            }
+            flush(run,runFront);
+            return {front,back};
+        }
+
+        // Precompute static grid & axes paths (viewBox independent of state)
+        const gridCache = (function(){
+            const lats=[30,60,90,120,150].map(d=> tracePath(sampleLatitude(d*DEG),R,CX,CY,true));
+            const mers=[0,30,60,90,120,150].map(d=> tracePath(sampleMeridian(d*DEG),R,CX,CY,true));
+            return {lats, mers};
+        })();
+        const axesCache = [
+            {v:X_HAT,name:"x"}, {v:Y_HAT,name:"y"}, {v:Z_HAT,name:"z"}
+        ].map(({v,name})=> ({
+            name, ...tracePath(sampleSegment({x:-v.x,y:-v.y,z:-v.z}, v, 48), R,CX,CY), tip: project(v,R,CX,CY)
+        }));
+
+        let theta=1.107, phi=2.214;
+        let showGrid=true, showAngles=true, showAxes=true, showLabels=true, spin=true;
+        let raf=0, lastT=performance.now();
+        let dragging=false;
+
+        const els = {
+            mainWrap: document.getElementById('blochMainWrap'),
+            pillarHost: document.getElementById('pillarBlochHost'),
+            theta: document.getElementById('blochTheta'),
+            phi: document.getElementById('blochPhi'),
+            thetaLabel: document.getElementById('blochThetaLabel'),
+            phiLabel: document.getElementById('blochPhiLabel'),
+            ket: document.getElementById('blochKet'),
+            x: document.getElementById('blochX'),
+            y: document.getElementById('blochY'),
+            z: document.getElementById('blochZ'),
+            p0: document.getElementById('blochP0'),
+            p1: document.getElementById('blochP1'),
+            bar0: document.getElementById('blochBar0'),
+            bar1: document.getElementById('blochBar1'),
+            beta: document.getElementById('blochBeta'),
+            presets: document.getElementById('blochPresets'),
+            gates: document.getElementById('blochGates'),
+        };
+
+        function fmt(n){ return Math.abs(n).toFixed(3); }
+        function sign(n){ return n<0?"−":"+"; }
+
+        function buildSVG(containerId, isPillar){
+            const uid = containerId;
+            const v = blochVector(theta,phi);
+            const tip = project(v,R,CX,CY);
+            const tipBehind = tip.depth < 0;
+            const dx = tip.x - CX, dy = tip.y - CY;
+            const len = Math.hypot(dx,dy)||1;
+            const ux = dx/len, uy = dy/len;
+            const back = Math.min(11, len*0.55);
+            const bx = tip.x - ux*back, by = tip.y - uy*back;
+            const head = `${tip.x},${tip.y} ${bx - uy*5.4},${by + ux*5.4} ${bx + uy*5.4},${by - ux*5.4}`;
+            const foot = project({x:v.x,y:v.y,z:0},R,CX,CY);
+
+            let thetaArc=null, phiArc=null, thetaLabelPos=null, phiLabelPos=null, thetaD="", phiD="";
+            if(Math.sin(theta) >= 0.02){
+                const pts = sampleArc(Z_HAT, v, R*0.32, 44);
+                const mid = sampleArc(Z_HAT, v, R*0.32+17,44)[22];
+                thetaD = toPath(pts,1,CX,CY);
+                thetaLabelPos = project(mid,1,CX,CY);
+            }
+            if(Math.sin(theta) >=0.06 && phi>=0.03 && phi <= TAU-0.01){
+                const steps=72; const pts=[];
+                for(let i=0;i<=steps;i++){ const a=(i/steps)*phi; pts.push({x:Math.cos(a)*R*0.62, y:Math.sin(a)*R*0.62, z:0}); }
+                const midA=phi/2; const mid={x:Math.cos(midA)*(R*0.62+17), y:Math.sin(midA)*(R*0.62+17), z:0};
+                phiD = toPath(pts,1,CX,CY);
+                phiLabelPos = project(mid,1,CX,CY);
+            }
+
+            const ketDefs = [
+                {v:Z_HAT,text:"|0⟩"}, {v:{x:0,y:0,z:-1},text:"|1⟩"},
+                {v:X_HAT,text:"|+⟩"}, {v:{x:-1,y:0,z:0},text:"|−⟩"},
+                {v:Y_HAT,text:"|+i⟩"}, {v:{x:0,y:-1,z:0},text:"|−i⟩"}
+            ].map(({v:vv,text})=>{
+                const p=project(vv,R,CX,CY);
+                const ddx=p.x-CX, ddy=p.y-CY; const l=Math.hypot(ddx,ddy)||1; const k=(R+21)/l;
+                return {text,x:CX+ddx*k,y:CY+ddy*k,dim:p.depth < -0.05};
+            });
+
+            const vecColorBehind = "#818cf8";
+            const gradId = uid+"-vec", glowId=uid+"-glow", tipGlowId=uid+"-tipGlow", auraId=uid+"-aura", bodyId=uid+"-body", vigId=uid+"-vignette", rimId=uid+"-rim", softId=uid+"-soft";
+
+            const parts=[];
+            parts.push(`<svg viewBox="0 0 ${VB} ${VB}" role="img" aria-label="Esfera de Bloch interactiva" style="width:100%;height:100%;display:block;touch-action:none;${!isPillar?'cursor:grab;':''}" ${!isPillar?`data-bloch-svg="main"`:""}>`);
+            parts.push(`<defs>`);
+            parts.push(`<radialGradient id="${auraId}" cx="50%" cy="50%" r="50%"><stop offset="55%" stop-color="#7c3aed" stop-opacity="0"/><stop offset="82%" stop-color="#8b5cf6" stop-opacity="0.10"/><stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/></radialGradient>`);
+            parts.push(`<radialGradient id="${bodyId}" cx="32%" cy="24%" r="88%"><stop offset="0%" stop-color="#c7d2fe" stop-opacity="0.22"/><stop offset="38%" stop-color="#6366f1" stop-opacity="0.14"/><stop offset="78%" stop-color="#1e1b4b" stop-opacity="0.50"/><stop offset="100%" stop-color="#020617" stop-opacity="0.72"/></radialGradient>`);
+            parts.push(`<radialGradient id="${vigId}" cx="50%" cy="50%" r="50%"><stop offset="62%" stop-color="#020617" stop-opacity="0"/><stop offset="92%" stop-color="#020617" stop-opacity="0.35"/><stop offset="100%" stop-color="#020617" stop-opacity="0.60"/></radialGradient>`);
+            parts.push(`<linearGradient id="${rimId}" x1="8%" y1="4%" x2="86%" y2="96%"><stop offset="0%" stop-color="#ddd6fe" stop-opacity="0.85"/><stop offset="42%" stop-color="#a78bfa" stop-opacity="0.28"/><stop offset="72%" stop-color="#6366f1" stop-opacity="0.18"/><stop offset="100%" stop-color="#22d3ee" stop-opacity="0.50"/></linearGradient>`);
+            const gx2 = len>2? tip.x : CX+0.01, gy2 = len>2? tip.y : CY-1;
+            parts.push(`<linearGradient id="${gradId}" gradientUnits="userSpaceOnUse" x1="${CX}" y1="${CY}" x2="${gx2}" y2="${gy2}"><stop offset="0%" stop-color="#a78bfa"/><stop offset="55%" stop-color="#818cf8"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient>`);
+            parts.push(`<radialGradient id="${tipGlowId}" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#67e8f9" stop-opacity="0.75"/><stop offset="60%" stop-color="#22d3ee" stop-opacity="0.22"/><stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>`);
+            parts.push(`<filter id="${glowId}" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`);
+            parts.push(`<filter id="${softId}" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="9"/></filter>`);
+            parts.push(`</defs>`);
+
+            parts.push(`<circle cx="${CX}" cy="${CY}" r="${R*1.42}" fill="url(#${auraId})"/>`);
+
+            // BACK layer
+            parts.push(`<g stroke-linecap="round" fill="none">`);
+            if(showGrid){
+                gridCache.lats.forEach((t,i)=>{
+                    t.back.forEach((d,j)=>{
+                        parts.push(`<path d="${d}" stroke="#818cf8" stroke-opacity="0.20" stroke-width="${i===2?1.4:0.9}" stroke-dasharray="3.5 5"/>`);
+                    });
+                });
+                gridCache.mers.forEach((m,i)=>{
+                    m.back.forEach(d=>{
+                        parts.push(`<path d="${d}" stroke="#818cf8" stroke-opacity="0.16" stroke-width="0.9" stroke-dasharray="3.5 5"/>`);
+                    });
+                });
+            }
+            if(showAxes){
+                axesCache.forEach(a=>{
+                    a.back.forEach(d=>{
+                        parts.push(`<path d="${d}" stroke="#a5b4fc" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="4 4"/>`);
+                    });
+                });
+            }
+            parts.push(`</g>`);
+
+            function renderVector(behind){
+                const op= behind?0.45:1;
+                const stroke = behind? vecColorBehind : `url(#${gradId})`;
+                const dash = behind? `stroke-dasharray="5 4"` : ``;
+                const fill = behind? vecColorBehind : "#22d3ee";
+                let s=`<g opacity="${op}">`;
+                s+=`<line x1="${CX}" y1="${CY}" x2="${bx}" y2="${by}" stroke="${stroke}" stroke-width="2.4" stroke-linecap="round" ${dash} filter="url(#${glowId})"/>`;
+                s+=`<polygon points="${head}" fill="${fill}" filter="url(#${glowId})"/>`;
+                s+=`<circle cx="${tip.x}" cy="${tip.y}" r="9" fill="url(#${tipGlowId})" class="animate-bloch-pulse"/>`;
+                s+=`<circle cx="${tip.x}" cy="${tip.y}" r="3.4" fill="#e0f2fe" filter="url(#${glowId})"/>`;
+                s+=`</g>`;
+                return s;
+            }
+            if(tipBehind) parts.push(renderVector(true));
+
+            parts.push(`<circle cx="${CX}" cy="${CY}" r="${R}" fill="url(#${bodyId})"/>`);
+            parts.push(`<circle cx="${CX}" cy="${CY}" r="${R}" fill="url(#${vigId})"/>`);
+            parts.push(`<ellipse cx="${CX-34}" cy="${CY-42}" rx="34" ry="22" fill="#e0f2fe" opacity="0.13" filter="url(#${softId})"/>`);
+            parts.push(`<ellipse cx="${CX+40}" cy="${CY+46}" rx="30" ry="18" fill="#22d3ee" opacity="0.08" filter="url(#${softId})"/>`);
+            parts.push(`<circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="url(#${rimId})" stroke-width="1.6"/>`);
+
+            // FRONT layer
+            parts.push(`<g stroke-linecap="round" fill="none">`);
+            if(showGrid){
+                gridCache.lats.forEach((t,i)=>{
+                    t.front.forEach(d=>{
+                        const col = i===2?"#c4b5fd":"#a5b4fc";
+                        const op = i===2?0.60:0.34;
+                        const w = i===2?1.5:1;
+                        parts.push(`<path d="${d}" stroke="${col}" stroke-opacity="${op}" stroke-width="${w}"/>`);
+                    });
+                });
+                gridCache.mers.forEach(m=>{
+                    m.front.forEach(d=>{
+                        parts.push(`<path d="${d}" stroke="#a5b4fc" stroke-opacity="0.28" stroke-width="1"/>`);
+                    });
+                });
+            }
+            if(showAxes){
+                axesCache.forEach(a=>{
+                    a.front.forEach(d=>{
+                        parts.push(`<path d="${d}" stroke="#c7d2fe" stroke-opacity="0.5" stroke-width="1.1"/>`);
+                    });
+                });
+            }
+            parts.push(`</g>`);
+
+            if(showAxes){
+                axesCache.forEach(a=>{
+                    const ddx=a.tip.x-CX, ddy=a.tip.y-CY; const l=Math.hypot(ddx,ddy)||1; const ux_=ddx/l, uy_=ddy/l;
+                    const bxa=a.tip.x - ux_*9, bya=a.tip.y - uy_*9;
+                    parts.push(`<polygon points="${a.tip.x},${a.tip.y} ${bxa - uy_*3.4},${bya + ux_*3.4} ${bxa + uy_*3.4},${bya - ux_*3.4}" fill="#c7d2fe" fill-opacity="0.55"/>`);
+                });
+            }
+
+            if(showAngles){
+                parts.push(`<g>`);
+                if(Math.sin(theta)>0.03){
+                    parts.push(`<line x1="${tip.x}" y1="${tip.y}" x2="${foot.x}" y2="${foot.y}" stroke="#67e8f9" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3 3"/>`);
+                    parts.push(`<line x1="${CX}" y1="${CY}" x2="${foot.x}" y2="${foot.y}" stroke="#67e8f9" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="2 4"/>`);
+                    parts.push(`<circle cx="${foot.x}" cy="${foot.y}" r="2" fill="#67e8f9" fill-opacity="0.7"/>`);
+                }
+                if(thetaD && thetaLabelPos){
+                    parts.push(`<path d="${thetaD}" fill="none" stroke="#fbbf24" stroke-opacity="0.85" stroke-width="1.4" stroke-linecap="round"/>`);
+                    parts.push(`<text x="${thetaLabelPos.x}" y="${thetaLabelPos.y+4}" text-anchor="middle" font-size="14" font-style="italic" font-family="ui-serif, Georgia, serif" fill="#fcd34d" stroke="#04050c" stroke-width="3" stroke-opacity="0.7" paint-order="stroke">θ</text>`);
+                }
+                if(phiD && phiLabelPos){
+                    parts.push(`<path d="${phiD}" fill="none" stroke="#f472b6" stroke-opacity="0.80" stroke-width="1.4" stroke-linecap="round"/>`);
+                    parts.push(`<text x="${phiLabelPos.x}" y="${phiLabelPos.y+4}" text-anchor="middle" font-size="14" font-style="italic" font-family="ui-serif, Georgia, serif" fill="#f9a8d4" stroke="#04050c" stroke-width="3" stroke-opacity="0.7" paint-order="stroke">φ</text>`);
+                }
+                parts.push(`</g>`);
+            }
+
+            if(!tipBehind) parts.push(renderVector(false));
+
+            parts.push(`<circle cx="${CX}" cy="${CY}" r="2.6" fill="#e2e8f0" fill-opacity="0.8"/>`);
+
+            if(showLabels){
+                ketDefs.forEach(l=>{
+                    parts.push(`<text x="${l.x}" y="${l.y+4}" text-anchor="middle" font-size="14" font-style="italic" font-family="ui-serif, Georgia, serif" fill="${l.dim?"rgba(148,163,184,0.55)":"rgba(226,232,240,0.90)"}" stroke="#04050c" stroke-width="3.5" stroke-opacity="0.75" paint-order="stroke">${l.text}</text>`);
+                });
+                if(showAxes){
+                    axesCache.forEach(a=>{
+                        const px=CX+(a.tip.x-CX)*0.62, py=CY+(a.tip.y-CY)*0.62;
+                        const ddx=a.tip.x-CX, ddy=a.tip.y-CY; const l=Math.hypot(ddx,ddy)||1;
+                        const ox= -(ddy/l)*11, oy=(ddx/l)*11;
+                        parts.push(`<text x="${px+ox}" y="${py+oy+3}" text-anchor="middle" font-size="10.5" font-style="italic" font-family="ui-monospace, monospace" fill="rgba(165,180,252,0.75)">${a.name}</text>`);
+                    });
+                }
+                // |ψ⟩ label offset along vector
+                const off = 21;
+                const lx = tip.x + (dx/len)*off;
+                const ly = tip.y + (dy/len)*off + 5;
+                parts.push(`<text x="${lx}" y="${ly}" text-anchor="middle" font-size="16" font-style="italic" font-family="ui-serif, Georgia, serif" fill="#a5f3fc" stroke="#04050c" stroke-width="4" stroke-opacity="0.85" paint-order="stroke">|ψ⟩</text>`);
+            }
+
+            parts.push(`</svg>`);
+            return parts.join("");
+        }
+
+        function renderAll(){
+            if(els.mainWrap) els.mainWrap.innerHTML = buildSVG("bloch-main", false);
+            if(els.pillarHost) els.pillarHost.innerHTML = buildSVG("bloch-pillar", true);
+        }
+        // pointer handling on stable wrapper — not on transient SVG
+        (function attachPointer(){
+            const wrap = els.mainWrap;
+            if(!wrap) return;
+            let activePointerId=null;
+            const getPoint = (e)=>{
+                const svg = wrap.querySelector('svg');
+                const rect = (svg || wrap).getBoundingClientRect();
+                const x=((e.clientX-rect.left)/rect.width)*VB;
+                const y=((e.clientY-rect.top)/rect.height)*VB;
+                const p=unproject(x,y,R,CX,CY);
+                const t=Math.acos(Math.max(-1,Math.min(1,p.z)));
+                let a=Math.atan2(p.y,p.x); if(a<0) a+=TAU;
+                return {theta:Math.min(Math.PI,Math.max(0,t)), phi:a};
+            };
+            wrap.addEventListener('pointerdown', (e)=>{
+                dragging=true; activePointerId=e.pointerId;
+                try{ wrap.setPointerCapture(e.pointerId);}catch(_){}
+                spin=false; updateSpinUI();
+                const nxt=getPoint(e); theta=nxt.theta; phi=nxt.phi; syncInputs(); renderAll(); updatePanels();
+                e.preventDefault();
+            });
+            wrap.addEventListener('pointermove', (e)=>{
+                if(!dragging) return;
+                if(activePointerId!==null && e.pointerId!==activePointerId) return;
+                const nxt=getPoint(e); theta=nxt.theta; phi=nxt.phi; syncInputs(); renderAll(); updatePanels();
+            });
+            const end = (e)=>{
+                if(activePointerId!==null && e.pointerId!==activePointerId) return;
+                dragging=false; activePointerId=null;
+                try{ wrap.releasePointerCapture(e.pointerId);}catch(_){}
+            };
+            wrap.addEventListener('pointerup', end);
+            wrap.addEventListener('pointercancel', end);
+        })();
+
+        function syncInputs(){
+            if(els.theta) els.theta.value = theta;
+            if(els.phi) els.phi.value = phi;
+            if(els.thetaLabel) els.thetaLabel.textContent = `θ = ${(theta/DEG).toFixed(1)}°`;
+            if(els.phiLabel) els.phiLabel.textContent = `φ = ${(phi/DEG).toFixed(1)}°`;
+        }
+        function updatePanels(){
+            const a=Math.cos(theta/2), b=Math.sin(theta/2);
+            const p0=a*a, p1=b*b;
+            const v=blochVector(theta,phi);
+            const betaRe=b*Math.cos(phi), betaIm=b*Math.sin(phi);
+            if(els.ket){
+                const phiDeg=(phi/DEG).toFixed(0);
+                els.ket.innerHTML = `|ψ⟩ = <span style="color:#ddd6fe">${a.toFixed(3)}</span>|0⟩ ${sign(betaIm>=0?1:-1)} <span style="color:#a5f3fc">(${fmt(b)}·e<sup style="font-size:0.65em">i·${phiDeg}°</sup>)</span>|1⟩`;
+            }
+            if(els.x) els.x.textContent = v.x.toFixed(3);
+            if(els.y) els.y.textContent = v.y.toFixed(3);
+            if(els.z) els.z.textContent = v.z.toFixed(3);
+            if(els.p0) els.p0.textContent = (p0*100).toFixed(1)+"%";
+            if(els.p1) els.p1.textContent = (p1*100).toFixed(1)+"%";
+            if(els.bar0) els.bar0.style.width = Math.max(0.5,p0*100)+"%";
+            if(els.bar1) els.bar1.style.width = Math.max(0.5,p1*100)+"%";
+            if(els.beta) els.beta.textContent = `${betaRe.toFixed(3)} ${sign(betaIm)} ${fmt(betaIm)}i`;
+            // presets active
+            if(els.presets){
+                const pills = els.presets.querySelectorAll('[data-theta]');
+                pills.forEach(btn=>{
+                    const t=parseFloat(btn.dataset.theta), p=parseFloat(btn.dataset.phi);
+                    let active=false;
+                    if(Math.abs(theta - t) < 0.02){
+                        if(Math.abs(t) < 0.02 || Math.abs(t-Math.PI)<0.02) active=true;
+                        else {
+                            let diff = Math.abs(((phi - p + Math.PI*3)%TAU)-Math.PI);
+                            // Actually check circular distance
+                            let d = Math.abs(phi - p); d = Math.min(d, TAU-d);
+                            active = d < 0.03;
+                        }
+                    }
+                    btn.classList.toggle('active', active);
+                });
+            }
+        }
+        function updateSpinUI(){
+            const btn=document.querySelector('[data-bloch-toggle="spin"]');
+            if(btn){
+                btn.classList.toggle('active', spin);
+                btn.setAttribute('aria-pressed', spin);
+                btn.textContent = spin ? "❚❚ Pausar giro" : "▶ Girar φ";
+            }
+        }
+
+        // Slider events
+        if(els.theta) els.theta.addEventListener('input', (e)=>{
+            spin=false; updateSpinUI(); theta=parseFloat(e.target.value); syncInputs(); renderAll(); updatePanels();
+        });
+        if(els.phi) els.phi.addEventListener('input', (e)=>{
+            spin=false; updateSpinUI(); phi=parseFloat(e.target.value); syncInputs(); renderAll(); updatePanels();
+        });
+        // Presets
+        if(els.presets){
+            els.presets.querySelectorAll('[data-theta]').forEach(btn=>{
+                btn.addEventListener('click', ()=>{
+                    spin=false; updateSpinUI();
+                    theta=parseFloat(btn.dataset.theta); phi=parseFloat(btn.dataset.phi);
+                    syncInputs(); renderAll(); updatePanels();
+                });
+            });
+            const rnd=document.getElementById('blochRandom');
+            if(rnd) rnd.addEventListener('click', ()=>{
+                spin=false; updateSpinUI();
+                theta=Math.acos(1-2*Math.random()); phi=Math.random()*TAU;
+                syncInputs(); renderAll(); updatePanels();
+            });
+        }
+        // Gates
+        if(els.gates){
+            els.gates.querySelectorAll('[data-gate]').forEach(btn=>{
+                btn.addEventListener('click', ()=>{
+                    const g=GATES[btn.dataset.gate];
+                    if(!g) return;
+                    spin=false; updateSpinUI();
+                    const v=blochVector(theta,phi);
+                    const nv=rotateAbout(v,g.axis,g.angle);
+                    const ang=anglesFromVector(nv);
+                    theta=ang.theta; phi=ang.phi;
+                    syncInputs(); renderAll(); updatePanels();
+                });
+            });
+        }
+        // Toggles
+        document.querySelectorAll('[data-bloch-toggle]').forEach(btn=>{
+            btn.addEventListener('click', ()=>{
+                const k=btn.dataset.blochToggle;
+                if(k==='grid') showGrid=!showGrid;
+                else if(k==='angles') showAngles=!showAngles;
+                else if(k==='axes') showAxes=!showAxes;
+                else if(k==='labels') showLabels=!showLabels;
+                else if(k==='spin'){ spin=!spin; updateSpinUI(); if(spin) lastT=performance.now(); }
+                if(k!=='spin'){
+                    btn.classList.toggle('active', k==='grid'?showGrid : k==='angles'?showAngles : k==='axes'?showAxes : showLabels);
+                    btn.setAttribute('aria-pressed', btn.classList.contains('active'));
+                }
+                renderAll();
+            });
+        });
+
+        // Spin loop
+        function tick(t){
+            if(spin && !dragging){
+                const dt=Math.min(0.05,(t-lastT)/1000);
+                lastT=t;
+                phi=(phi + dt*0.55)%TAU;
+                syncInputs(); renderAll(); updatePanels();
+            } else {
+                lastT=t;
+            }
+            raf=requestAnimationFrame(tick);
+        }
+        raf=requestAnimationFrame(tick);
+
+        // Initial
+        syncInputs(); renderAll(); updatePanels(); updateSpinUI();
+
+        // Respect reduced motion
+        if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+            spin=false; updateSpinUI();
+        }
+
+        // Also observe visibility to pause when not visible? simple
+        document.addEventListener('visibilitychange', ()=>{
+            if(document.hidden) cancelAnimationFrame(raf);
+            else { lastT=performance.now(); raf=requestAnimationFrame(tick); }
+        });
+    })();
     </script>
 </body>
 
