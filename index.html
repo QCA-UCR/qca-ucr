@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<!-- ============================================================
+     LANGUAGE EDITING GUIDE (easy text updates in HTML source):
+     - English is the DEFAULT language on page load.
+     - Every translatable text has data-en="..." (English) and
+       data-es="..." (Spanish). Just edit those two attributes
+       (or the element content, which mirrors data-en) to update copy.
+     - Team member role/bio: edit data-en / data-es on
+       .member-role-split and .member-bio-split elements.
+     - Team modal bios: edit role_en/role_es/bio_en/bio_es in the
+       peopleData object in the <script> below (search "EDITABLE").
+     ============================================================ -->
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -251,6 +262,79 @@
             min-height: 44px;
             align-items: center;
             justify-content: center;
+        }
+
+        /* ---------- LANGUAGE SWITCHER (upper right) ---------- */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+
+        .lang-switcher button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 400;
+            padding: 0.4rem 0.5rem;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+            min-width: 40px;
+            min-height: 36px;
+        }
+
+        .lang-switcher button:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .lang-switcher button.active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.10);
+            font-weight: 600;
+        }
+
+        .lang-switcher .lang-sep {
+            color: var(--text-secondary);
+            opacity: 0.4;
+        }
+
+        /* ---------- FORMER MEMBERS ---------- */
+        .former-members {
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: var(--border-light);
+        }
+
+        .former-members h3 {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .former-members .former-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 640px;
+        }
+
+        .former-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 4rem 2rem;
         }
 
         /* ---------- HERO ---------- */
@@ -1033,6 +1117,11 @@
                 gap: 2.5rem 0;
             }
 
+            .former-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem 0;
+            }
+
             .contact-grid {
                 grid-template-columns: 1fr;
                 padding: 1.5rem;
@@ -1328,15 +1417,23 @@
     <header>
         <nav class="container">
             <div class="logo"><a href="#home"><span style="color:var(--color-qec);font-weight:700;margin-right:0.18em;">|</span>QCA<span style="color:var(--color-qec);font-weight:900;margin-left:0.18em;-webkit-text-stroke:0.6px var(--color-qec);font-size:1.15em;">⟩</span></a></div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </button>
             <div class="nav-links" id="navLinks">
-                <a href="#home" class="active">Inicio</a>
-                <a href="#research">Investigación</a>
-                <a href="#team">Equipo</a>
-                <a href="#publications">Publicaciones</a>
-                <a href="#contact">Contacto</a>
+                <!-- EDITABLE nav labels: data-en = English (default), data-es = Spanish -->
+                <a href="#home" class="active" data-en="Home" data-es="Inicio">Home</a>
+                <a href="#research" data-en="Research" data-es="Investigación">Research</a>
+                <a href="#team" data-en="Team" data-es="Equipo">Team</a>
+                <a href="#publications" data-en="Publications" data-es="Publicaciones">Publications</a>
+                <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
+            </div>
+            <div class="nav-right">
+                <div class="lang-switcher" role="group" aria-label="Language / Idioma">
+                    <button type="button" data-lang="en" class="active" aria-pressed="true">EN</button>
+                    <span class="lang-sep" aria-hidden="true">|</span>
+                    <button type="button" data-lang="es" aria-pressed="false">ES</button>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" data-aria-en="Open navigation menu" data-aria-es="Abrir menú de navegación" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
             </div>
         </nav>
     </header>
@@ -1345,7 +1442,8 @@
         <!-- HERO -->
         <section id="home" class="hero container">
             <h1>Quantum Computing and Applications</h1>
-            <p class="tagline">Investigación en computación cuántica, simulación, corrección de errores cuánticos y diseño computacional de materiales 2D magnéticos para espintrónica.</p>
+            <!-- EDITABLE hero tagline -->
+            <p class="tagline" data-en="Research in quantum computing, simulation, quantum error correction, and computational design of 2D magnetic materials for spintronics." data-es="Investigación en computación cuántica, simulación, corrección de errores cuánticos y diseño computacional de materiales 2D magnéticos para espintrónica.">Research in quantum computing, simulation, quantum error correction, and computational design of 2D magnetic materials for spintronics.</p>
             <div class="hero-accent">
                 <span>
                     <span class="hero-icon-glitch" aria-hidden="true"
@@ -1363,13 +1461,14 @@
 
         <!-- RESEARCH -->
         <section id="research" class="container">
-            <h2>Research</h2>
+            <!-- EDITABLE section title -->
+            <h2 data-en="Research" data-es="Investigación">Research</h2>
             <div class="research-pillars">
                 <!-- Pillar 1: QEC -->
                 <div class="pillar-card pillar-qec">
-                    <h3>Quantum Error Correction and Quantum Simulation</h3>
-                    <div class="pillar-bloch-host" id="pillarBlochHost" aria-label="Esfera de Bloch interactiva miniatura" role="img"></div>
-                    <p>Analysis of quantum error correcting codes and error suppression protocols in quantum systems, including computers and sensors.
+                    <h3 data-en="Quantum Error Correction and Quantum Simulation" data-es="Corrección de Errores Cuánticos y Simulación Cuántica">Quantum Error Correction and Quantum Simulation</h3>
+                    <div class="pillar-bloch-host" id="pillarBlochHost" aria-label="Interactive miniature Bloch sphere" data-aria-en="Interactive miniature Bloch sphere" data-aria-es="Esfera de Bloch interactiva miniatura" role="img"></div>
+                    <p data-en="Analysis of quantum error correcting codes and error suppression protocols in quantum systems, including computers and sensors. Study of molecules and material chemical and physical properties with quantum computers." data-es="Análisis de códigos cuánticos de corrección de errores y protocolos de supresión de errores en sistemas cuánticos, incluyendo computadoras y sensores. Estudio de moléculas y de las propiedades químicas y físicas de materiales con computadoras cuánticas.">Analysis of quantum error correcting codes and error suppression protocols in quantum systems, including computers and sensors.
                         Study of molecules and material chemical and physical properties with quantum computers.
                     </p>
                     <div class="pillar-keywords">
@@ -1389,12 +1488,13 @@
 
                 <!-- Pillar 2: CMP -->
                 <div class="pillar-card pillar-cmp">
-                    <h3>Condensed Matter Physics &amp; Materials Science</h3>
+                    <h3 data-en="Condensed Matter Physics &amp; Materials Science" data-es="Física de Materia Condensada y Ciencia de Materiales">Condensed Matter Physics &amp; Materials Science</h3>
                     <div class="pillar-icon-cmp">
-                        <img src="bz.png" alt="Diagrama de Zona de Brillouin"
+                        <img src="bz.png" alt="Brillouin Zone diagram"
+                            data-alt-en="Brillouin Zone diagram" data-alt-es="Diagrama de Zona de Brillouin"
                             width="220" height="220" loading="lazy">
                     </div>
-                    <p>Design of room-temperature 2D magnetism in MXenes using first-principles calculations (DFT). Different compositions are systematically prospected —evaluating magnetic exchange, magnetocrystalline anisotropy (MAE), and Dzyaloshinskii–Moriya interaction (DMI)— to identify candidates with spintronic potential oriented towards the development of ultra-thin and energy-efficient devices.</p>
+                    <p data-en="Design of room-temperature 2D magnetism in MXenes using first-principles calculations (DFT). Different compositions are systematically prospected —evaluating magnetic exchange, magnetocrystalline anisotropy (MAE), and Dzyaloshinskii–Moriya interaction (DMI)— to identify candidates with spintronic potential oriented towards the development of ultra-thin and energy-efficient devices." data-es="Diseño de magnetismo 2D a temperatura ambiente en MXenes mediante cálculos de primeros principios (DFT). Se exploran sistemáticamente distintas composiciones —evaluando intercambio magnético, anisotropía magnetocristalina (MAE) e interacción Dzyaloshinskii–Moriya (DMI)— para identificar candidatos con potencial espintrónico orientados al desarrollo de dispositivos ultradelgados y energéticamente eficientes.">Design of room-temperature 2D magnetism in MXenes using first-principles calculations (DFT). Different compositions are systematically prospected —evaluating magnetic exchange, magnetocrystalline anisotropy (MAE), and Dzyaloshinskii–Moriya interaction (DMI)— to identify candidates with spintronic potential oriented towards the development of ultra-thin and energy-efficient devices.</p>
                     <div class="pillar-keywords">
                         <span class="keyword">DFT</span>
                         <span class="keyword">MXenes</span>
@@ -1404,7 +1504,7 @@
                 </div>
             </div>
 
-            <p class="section-subtitle" style="font-size: 24px; color: #f0f0f0; line-height: 1.4;">
+            <p class="section-subtitle" style="font-size: 24px; color: #f0f0f0; line-height: 1.4;" data-en="We are always open to collaborate with local and international teams, drop us a line!" data-es="¡Siempre estamos abiertos a colaborar con equipos locales e internacionales, escríbenos!">
   We are always open to collaborate with local and international teams, drop us a line!
 </p>
 
@@ -1416,142 +1516,152 @@
         <section id="team" class="container">
             <div class="team-split-layout">
                 <!-- Left Column: Intro -->
+                <!-- EDITABLE team intro -->
                 <div class="team-intro">
-                    <h2>Research Team</h2>
-                    <p>We are a theoretic-computational group at University of Costa Rica working on quantum computing, mainly: quantum error correction, simulation of chemical systems, as well as the study of magnetic systems through first principle simulations, with the goal of developing more robust and efficient quantum technologies.</p>
+                    <h2 data-en="Research Team" data-es="Equipo de Investigación">Research Team</h2>
+                    <p data-en="We are a theoretic-computational group at University of Costa Rica working on quantum computing, mainly: quantum error correction, simulation of chemical systems, as well as the study of magnetic systems through first principle simulations, with the goal of developing more robust and efficient quantum technologies." data-es="Somos un grupo teórico-computacional de la Universidad de Costa Rica que trabaja en computación cuántica, principalmente: corrección de errores cuánticos, simulación de sistemas químicos, así como el estudio de sistemas magnéticos mediante simulaciones de primeros principios, con el objetivo de desarrollar tecnologías cuánticas más robustas y eficientes.">We are a theoretic-computational group at University of Costa Rica working on quantum computing, mainly: quantum error correction, simulation of chemical systems, as well as the study of magnetic systems through first principle simulations, with the goal of developing more robust and efficient quantum technologies.</p>
                 </div>
 
                 <!-- Right Column: Grid -->
+                <!-- EDITABLE team members: edit data-en (English, default) / data-es (Spanish) on role & bio -->
                 <div class="team-grid-right">
                     <!-- Mauricio -->
                     <button class="team-member-split" data-person="mauricio"
-                        aria-label="Ver perfil de Mauricio Gutiérrez">
+                        aria-label="View profile of Mauricio Gutiérrez" data-aria-en="View profile of Mauricio Gutiérrez" data-aria-es="Ver perfil de Mauricio Gutiérrez">
                         <div class="member-avatar-split">
                             <img src="MGA.jpeg" alt="Mauricio Gutiérrez A."
                                 width="100" height="100" loading="lazy">
                         </div>
                         <div class="member-name-split">Mauricio Gutiérrez A.</div>
-                        <div class="member-role-split">Associate Professor (PI)</div>
-                        <div class="member-bio-split"> Research in quantum error correction, computational chemistry and sensing.
+                        <div class="member-role-split" data-en="Associate Professor (PI)" data-es="Profesor Asociado (PI)">Associate Professor (PI)</div>
+                        <div class="member-bio-split" data-en="Research in quantum error correction, computational chemistry and sensing. Mentors: Kenneth R. Brown and Markus Müller." data-es="Investigación en corrección de errores cuánticos, química computacional y sensado. Mentores: Kenneth R. Brown y Markus Müller."> Research in quantum error correction, computational chemistry and sensing.
                             Mentors: Kenneth R. Brown y Markus Müller.
                         </div>
                         <div class="member-socials-split">
-                            <a href="https://scholar.google.com/citations?user=XMla-DIAAAAJ&hl=en"><i class="fas fa-graduation-cap"></i></a>
-                            <a href="https://www.linkedin.com/in/mauricio-gutiérrez-36115b40/"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://orcid.org/0000-0002-0826-3521"><i class="fab fa-orcid"></i></a>
-                            <a href="mauricio.gutierrez_a@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
+                            <a href="https://scholar.google.com/citations?user=XMla-DIAAAAJ&hl=en" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="https://www.linkedin.com/in/mauricio-gutiérrez-36115b40/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://orcid.org/0000-0002-0826-3521" aria-label="ORCID"><i class="fab fa-orcid"></i></a>
+                            <a href="mailto:mauricio.gutierrez_a@ucr.ac.cr" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                            <a href="tel:+50683206068" aria-label="Office phone"><i class="fas fa-phone"></i></a>
                         </div>
                     </button>
 
                     <!-- Ignacio -->
                     <button class="team-member-split" data-person="ignacio"
-                        aria-label="Ver perfil de J. Ignacio Borge">
+                        aria-label="View profile of J. Ignacio Borge" data-aria-en="View profile of J. Ignacio Borge" data-aria-es="Ver perfil de J. Ignacio Borge">
                         <div class="member-avatar-split">
                             <img src="IBD.jpg" alt="J. Ignacio Borge"
                                 width="100" height="100" loading="lazy">
                         </div>
                         <div class="member-name-split">J. Ignacio Borge</div>
-                        <div class="member-role-split">Postdoc</div>
-                        <div class="member-bio-split">PhD in Computational Chemistry of Solid State Materials (Bar-Ilan University). DFT, 2D materials, spintronics and graph neural networks applied to material science.</div>
+                        <div class="member-role-split" data-en="Postdoctoral Researcher" data-es="Investigador Postdoctoral">Postdoctoral Researcher</div>
+                        <div class="member-bio-split" data-en="PhD in Computational Chemistry of Solid State Materials (Bar-Ilan University). DFT, 2D materials, spintronics and graph neural networks applied to material science." data-es="Doctor en Química Computacional de Materiales en Estado Sólido (Universidad Bar-Ilan). DFT, materiales 2D, espintrónica y redes neuronales de grafos aplicadas a la ciencia de materiales.">PhD in Computational Chemistry of Solid State Materials (Bar-Ilan University). DFT, 2D materials, spintronics and graph neural networks applied to material science.</div>
                         <div class="member-socials-split">
                             <a href="https://scholar.google.com/citations?user=BnC-tAMAAAAJ&hl=en"><i class="fas fa-graduation-cap"></i></a>
                             <a href="https://www.linkedin.com/in/j-ignacio-borge-b518a137/"><i class="fab fa-linkedin"></i></a>
                             <a href="https://orcid.org/0000-0002-1184-3842"><i class="fab fa-orcid"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:jose.borge@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
                         </div>
                     </button>
 
                     <!-- Luis -->
                     <button class="team-member-split" data-person="luis"
-                        aria-label="Ver perfil de Luis Alejandro Arrieta Araya">
+                        aria-label="View profile of Luis Alejandro Arrieta Araya" data-aria-en="View profile of Luis Alejandro Arrieta Araya" data-aria-es="Ver perfil de Luis Alejandro Arrieta Araya">
                         <div class="member-avatar-split">
                             <img src="LAA.jpeg" alt="Luis Alejandro Arrieta Araya"
                                 width="100" height="100" loading="lazy">
                         </div>
                         <div class="member-name-split">Luis A. Arrieta Araya</div>
-                        <div class="member-role-split">Investigador</div>
-                        <div class="member-bio-split">Chemical engineer and lecturer. Research in computational material science with density
+                        <div class="member-role-split" data-en="Researcher" data-es="Investigador">Researcher</div>
+                        <div class="member-bio-split" data-en="Chemical engineer and lecturer. Research in computational material science with density functional theory (DFT)." data-es="Ingeniero químico y docente. Investigación en ciencia de materiales computacional mediante la teoría de la funcional de la densidad (DFT).">Chemical engineer and lecturer. Research in computational material science with density
                             functional theory (DFT).</div>
                         <div class="member-socials-split">
                             <a href="https://scholar.google.com/citations?user=2k-whDwAAAAJ&hl=en"><i class="fas fa-graduation-cap"></i></a>
                             <a href="https://www.linkedin.com/in/luisale0308/"><i class="fab fa-linkedin"></i></a>
                             <a href="https://orcid.org/0000-0003-4422-7066"><i class="fab fa-orcid"></i></a>
-                            <a href="LUIS.ARRIETAARAYA@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:LUIS.ARRIETAARAYA@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
                         </div>
                     </button>
 
                     <!-- Guillermo -->
-                    <button class="team-member-split" data-person="est1"
-                        aria-label="Ver perfil de Guillermo Escobar">
+                    <button class="team-member-split" data-person="guillermo"
+                        aria-label="View profile of Guillermo Escobar" data-aria-en="View profile of Guillermo Escobar" data-aria-es="Ver perfil de Guillermo Escobar">
                         <div class="member-avatar-split">
                             <i class="fas fa-user" aria-hidden="true"></i>
                         </div>
                         <div class="member-name-split">Guillermo Escobar</div>
-                        <div class="member-role-split">Licenciatura</div>
-                        <div class="member-bio-split">Implementation of quantum error correcting codes for superconducting hardware.</div>
+                        <div class="member-role-split" data-en="Undergraduate Student" data-es="Estudiante de Licenciatura">Undergraduate Student</div>
+                        <div class="member-bio-split" data-en="Implementation of quantum error correcting codes for superconducting hardware." data-es="Implementación de códigos cuánticos de corrección de errores para hardware superconductor.">Implementation of quantum error correcting codes for superconducting hardware.</div>
                         <div class="member-socials-split">
                             <a href="https://inspirehep.net/authors/2765053"><i class="fas fa-graduation-cap"></i></a>
                             <a href="https://orcid.org/0009-0009-7061-6824"><i class="fab fa-orcid"></i></a>
-                            <a href="GUILLERMO.ESCOBAR@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </button>
-
-                    <!-- Daniel -->
-                    <button class="team-member-split" data-person="daniel"
-                        aria-label="Ver perfil de Daniel Serrano">
-                        <div class="member-avatar-split">
-                            <img src="DSD.jpeg" alt="Daniel Serrano"
-                                width="100" height="100" loading="lazy">
-                        </div>
-                        <div class="member-name-split">Daniel Serrano</div>
-                        <div class="member-role-split">Investigador</div>
-                        <div class="member-bio-split">MSc in Mathematical and Theeoretical Physics by the University of Oxford. Full-stack error correction.</div>
-                        <div class="member-socials-split">
-                            <a href="https://scholar.google.com/citations?user=bBn1sD8AAAAJ&hl=en&oi=sra"><i class="fas fa-graduation-cap"></i></a>
-                            <a href="https://www.linkedin.com/in/daniel-serrano-/"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://orcid.org/0009-0007-1160-882X"><i class="fab fa-orcid"></i></a>
-                            <a href="daniel.serranodelgado@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:GUILLERMO.ESCOBAR@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
                         </div>
                     </button>
 
                     <!-- Marcos -->
-                    <button class="team-member-split" data-person="est2"
-                        aria-label="Ver perfil de Marcos Jiménez">
+                    <button class="team-member-split" data-person="marcos"
+                        aria-label="View profile of Marcos Jiménez" data-aria-en="View profile of Marcos Jiménez" data-aria-es="Ver perfil de Marcos Jiménez">
                         <div class="member-avatar-split">
                             <i class="fas fa-user" aria-hidden="true"></i>
                         </div>
                         <div class="member-name-split">Marcos Jiménez</div>
-                        <div class="member-role-split">Licenciatura</div>
-                        <div class="member-bio-split">Error correction in biased noise models.</div>
+                        <div class="member-role-split" data-en="Undergraduate Student" data-es="Estudiante de Licenciatura">Undergraduate Student</div>
+                        <div class="member-bio-split" data-en="Error correction in biased noise models." data-es="Corrección de errores en modelos de ruido sesgado.">Error correction in biased noise models.</div>
                         <div class="member-socials-split">
                             <a href="https://www.linkedin.com/in/mjm-ucr/"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </button>
 
                     <!-- Miguel -->
-                    <button class="team-member-split" data-person="est3"
-                        aria-label="Ver perfil de Miguel Araya">
+                    <button class="team-member-split" data-person="miguel"
+                        aria-label="View profile of Miguel Araya" data-aria-en="View profile of Miguel Araya" data-aria-es="Ver perfil de Miguel Araya">
                         <div class="member-avatar-split">
                             <img src="MAJ.jpeg" alt="Miguel Araya"
                                 width="100" height="100" loading="lazy">
                         </div>
                         <div class="member-name-split">Miguel Araya</div>
-                        <div class="member-role-split">Maestría</div>
-                        <div class="member-bio-split">Quantum simulation of chemical systems.</div>
+                        <div class="member-role-split" data-en="Master's Student" data-es="Estudiante de Maestría">Master's Student</div>
+                        <div class="member-bio-split" data-en="Quantum simulation of chemical systems." data-es="Simulación cuántica de sistemas químicos.">Quantum simulation of chemical systems.</div>
                         <div class="member-socials-split">
                             <a href="https://www.linkedin.com/in/miguel-araya-64a0bb251/"><i class="fab fa-linkedin"></i></a>
-                            <a href="MIGUEL.ARAYAJAMES@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:MIGUEL.ARAYAJAMES@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
                         </div>
                     </button>
 
                 </div>
             </div>
+
+            <!-- EDITABLE Former Members: Daniel moved here from Research Team -->
+            <div class="former-members">
+                <h3 data-en="Former Members" data-es="Miembros anteriores">Former Members</h3>
+                <p class="former-subtitle" data-en="They were part of the lab and contributed to our research." data-es="Formaron parte del laboratorio y contribuyeron a nuestra investigación.">They were part of the lab and contributed to our research.</p>
+                <div class="former-grid">
+                    <!-- Daniel -->
+                    <button class="team-member-split" data-person="daniel"
+                        aria-label="View profile of Daniel Serrano" data-aria-en="View profile of Daniel Serrano" data-aria-es="Ver perfil de Daniel Serrano">
+                        <div class="member-avatar-split">
+                            <img src="DSD.jpeg" alt="Daniel Serrano"
+                                width="100" height="100" loading="lazy">
+                        </div>
+                        <div class="member-name-split">Daniel Serrano</div>
+                        <div class="member-role-split" data-en="Researcher" data-es="Investigador">Researcher</div>
+                        <div class="member-bio-split" data-en="MSc in Mathematical and Theoretical Physics by the University of Oxford. Full-stack error correction." data-es="MSc en Física Matemática y Teórica por la Universidad de Oxford. Corrección de errores full-stack.">MSc in Mathematical and Theoretical Physics by the University of Oxford. Full-stack error correction.</div>
+                        <div class="member-socials-split">
+                            <a href="https://scholar.google.com/citations?user=bBn1sD8AAAAJ&hl=en&oi=sra"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="https://www.linkedin.com/in/daniel-serrano-/"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://orcid.org/0009-0007-1160-882X"><i class="fab fa-orcid"></i></a>
+                            <a href="mailto:daniel.serranodelgado@ucr.ac.cr"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </button>
+                </div>
+            </div>
         </section>
 
-        <!-- MODAL: Perfil de miembro -->
+        <!-- MODAL: Perfil de miembro / Member profile -->
         <div id="personModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
             <div class="modal-content">
-                <button class="modal-close" id="modalClose" aria-label="Cerrar diálogo">
+                <button class="modal-close" id="modalClose" aria-label="Close dialog" data-aria-en="Close dialog" data-aria-es="Cerrar diálogo">
                     <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
                 <div class="modal-name" id="modalName"></div>
@@ -1561,14 +1671,15 @@
             </div>
         </div>
 
-        <!-- MODAL: Todas las publicaciones -->
+        <!-- MODAL: Todas las publicaciones / All publications -->
         <div id="allPubsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="allPubsTitle">
             <div class="modal-content" style="max-width: 700px;">
-                <button class="modal-close" id="allPubsClose" aria-label="Cerrar diálogo">
+                <button class="modal-close" id="allPubsClose" aria-label="Close dialog" data-aria-en="Close dialog" data-aria-es="Cerrar diálogo">
                     <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
-                <div class="modal-name" id="allPubsTitle" style="margin-bottom: 1rem;">
-                    Lista Completa de Publicaciones
+                <!-- EDITABLE publications modal title -->
+                <div class="modal-name" id="allPubsTitle" style="margin-bottom: 1rem;" data-en="Full Publication List" data-es="Lista Completa de Publicaciones">
+                    Full Publication List
                 </div>
                 <div id="allPubsContainer">
                     <ul class="all-pubs-list" id="allPubsList"></ul>
@@ -1579,20 +1690,21 @@
         <div class="section-divider" role="separator"></div>
 
         <!-- PUBLICATIONS -->
+        <!-- EDITABLE publications texts: data-en = English (default), data-es = Spanish -->
         <section id="publications" class="container">
             <div class="publications-header">
-                <h2>Publicaciones recientes</h2>
+                <h2 data-en="Recent Publications" data-es="Publicaciones recientes">Recent Publications</h2>
                 <div class="pub-header-right">
-                    <p class="section-subtitle" style="text-align: left; margin: 0 0 1rem 0;">Selección de artículos que reflejan nuestras líneas de investigación.</p>
+                    <p class="section-subtitle" style="text-align: left; margin: 0 0 1rem 0;" data-en="A selection of papers reflecting our research lines." data-es="Selección de artículos que reflejan nuestras líneas de investigación.">A selection of papers reflecting our research lines.</p>
                     <div class="pub-legend" style="justify-content: flex-start;">
                         <span class="pub-legend-item">
-                            <span class="legend-dot legend-qec"></span>Corrección de Errores
+                            <span class="legend-dot legend-qec"></span><span data-en="Error Correction" data-es="Corrección de Errores">Error Correction</span>
                         </span>
                         <span class="pub-legend-item">
-                            <span class="legend-dot legend-cmp"></span>Materia Condensada
+                            <span class="legend-dot legend-cmp"></span><span data-en="Condensed Matter" data-es="Materia Condensada">Condensed Matter</span>
                         </span>
                         <span class="pub-legend-item">
-                            <span class="legend-dot legend-inter"></span>Intersección
+                            <span class="legend-dot legend-inter"></span><span data-en="Intersection" data-es="Intersección">Intersection</span>
                         </span>
                     </div>
                 </div>
@@ -1650,23 +1762,24 @@
             </ul>
             <div style="text-align: right; margin-top: 2rem;">
                 <!-- href is a fallback for no-JS; JS intercepts click and opens modal -->
+                <!-- EDITABLE view-all link -->
                 <a href="https://scholar.google.com/citations?user=XMla-DIAAAAJ&sortby=pubdate"
-                    class="pub-view-all" id="openPubsModal">Ver todas →</a>
+                    class="pub-view-all" id="openPubsModal" data-en="View all →" data-es="Ver todas →">View all →</a>
             </div>
         </section>
 
         <div class="section-divider" role="separator"></div>
 
         <!-- CONTACT -->
+        <!-- EDITABLE contact texts -->
         <section id="contact" class="container">
-            <h2>Contacto</h2>
+            <h2 data-en="Contact" data-es="Contacto">Contact</h2>
             <div class="contact-grid">
                 <div class="contact-item">
                     <i class="fas fa-map-pin" aria-hidden="true"></i>
                     <div>
-                        <strong>Dirección</strong><br>
-                        Escuela de Química, UCR<br>
-                        San José, Costa Rica
+                        <strong data-en="Address" data-es="Dirección">Address</strong><br>
+                        <span data-en="School of Chemistry, UCR<br>San José, Costa Rica" data-es="Escuela de Química, UCR<br>San José, Costa Rica">School of Chemistry, UCR<br>San José, Costa Rica</span>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1681,14 +1794,14 @@
                 <div class="contact-item">
                     <i class="fas fa-phone" aria-hidden="true"></i>
                     <div>
-                        <strong>Teléfono</strong><br>
-                        <a href="tel:+50625116061" class="contact-link">(+506) 2511-6061</a>
+                        <strong data-en="Phone" data-es="Teléfono">Phone</strong><br>
+                        <a href="tel:+50683206068" class="contact-link">(+506) 8320-6068</a>
                     </div>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-globe" aria-hidden="true"></i>
                     <div>
-                        <strong>Enlaces</strong><br>
+                        <strong data-en="Links" data-es="Enlaces">Links</strong><br>
                         <a href="https://scholar.google.com/citations?user=XMla-DIAAAAJ" class="contact-link" target="_blank" rel="noopener noreferrer">Scholar</a> ·
                         <a href="https://arxiv.org/search/?searchtype=author&query=Gutierrez+Mauricio" class="contact-link" target="_blank" rel="noopener noreferrer">arXiv</a> ·
                         <a href="https://www.ucr.ac.cr" class="contact-link" target="_blank" rel="noopener noreferrer">UCR</a>
@@ -1709,6 +1822,50 @@
         (function () {
             // --- FOOTER YEAR (dynamic) ---
             document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+            // --- LANGUAGE TOGGLE (EN default, ES optional) ---
+            // All static copy lives in HTML as data-en / data-es attributes.
+            let currentLang = 'en';
+            try {
+                currentLang = localStorage.getItem('qca-lang') || 'en';
+                if (currentLang !== 'en' && currentLang !== 'es') currentLang = 'en';
+            } catch (_) { currentLang = 'en'; }
+
+            function applyLang(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                // Text content (use innerHTML so <br> in data attributes works)
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    const val = lang === 'es' ? el.getAttribute('data-es') : el.getAttribute('data-en');
+                    if (val !== null) el.innerHTML = val;
+                });
+                // aria-labels
+                document.querySelectorAll('[data-aria-en]').forEach(el => {
+                    const val = lang === 'es' ? el.getAttribute('data-aria-es') : el.getAttribute('data-aria-en');
+                    if (val !== null) el.setAttribute('aria-label', val);
+                });
+                // image alt texts
+                document.querySelectorAll('[data-alt-en]').forEach(el => {
+                    const val = lang === 'es' ? el.getAttribute('data-alt-es') : el.getAttribute('data-alt-en');
+                    if (val !== null) el.setAttribute('alt', val);
+                });
+                // Toggle button states
+                document.querySelectorAll('.lang-switcher [data-lang]').forEach(btn => {
+                    const active = btn.getAttribute('data-lang') === lang;
+                    btn.classList.toggle('active', active);
+                    btn.setAttribute('aria-pressed', active);
+                });
+                try { localStorage.setItem('qca-lang', lang); } catch (_) {}
+            }
+
+            document.querySelectorAll('.lang-switcher [data-lang]').forEach(btn => {
+                btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
+            });
+
+            function personRole(data) { return currentLang === 'es' ? (data.role_es || data.role_en) : (data.role_en || data.role_es || data.role); }
+            function personBio(data) { return currentLang === 'es' ? (data.bio_es || data.bio_en) : (data.bio_en || data.bio_es || data.bio); }
+
+            applyLang(currentLang);
 
             // --- SMART REVEAL NAVBAR ---
             const header = document.querySelector('header');
@@ -1740,23 +1897,28 @@
             }, { passive: true });
 
             // --- TEAM MODAL DATA ---
+            // >>> EDITABLE: member modal bios. role_en/bio_en = English (default), role_es/bio_es = Spanish.
             const peopleData = {
                 mauricio: {
                     name: 'Mauricio Gutiérrez A.',
-                    role: 'PI, Associate Professor · School of Chemistry, UCR',
-                    bio: 'Soy profesor asociado en la Escuela de Química de la University of Costa Rica. Mi investigación gira en torno a la corrección de errores cuánticos, aunque también me interesan la química computacional, el sensado cuántico y, en general, todo lo relacionado con lo cuántico. He tenido la fortuna de formarme con mentores destacados, incluyendo al profesor <a href="https://brownlab.pratt.duke.edu/" target="_blank" rel="noopener noreferrer" style="color:var(--color-qec);text-decoration:none;">Kenneth R. Brown</a>, mi director de doctorado, y al profesor <a href="https://mueller.fz-juelich.de/" target="_blank" rel="noopener noreferrer" style="color:var(--color-qec);text-decoration:none;">Markus Müller</a>, mi asesor postdoctoral.',
+                    role_en: 'PI, Associate Professor · School of Chemistry, UCR',
+                    role_es: 'PI, Profesor Asociado · Escuela de Química, UCR',
+                    bio_en: 'I am an associate professor in the School of Chemistry at the University of Costa Rica. My research revolves around quantum error correction, though I am also interested in computational chemistry, quantum sensing and, in general, everything quantum-related. I have been fortunate to learn from outstanding mentors, including professor <a href="https://brownlab.pratt.duke.edu/" target="_blank" rel="noopener noreferrer" style="color:var(--color-qec);text-decoration:none;">Kenneth R. Brown</a>, my PhD advisor, and professor <a href="https://mueller.fz-juelich.de/" target="_blank" rel="noopener noreferrer" style="color:var(--color-qec);text-decoration:none;">Markus Müller</a>, my postdoctoral advisor.',
+                    bio_es: 'Soy profesor asociado en la Escuela de Química de la University of Costa Rica. Mi investigación gira en torno a la corrección de errores cuánticos, aunque también me interesan la química computacional, el sensado cuántico y, en general, todo lo relacionado con lo cuántico. He tenido la fortuna de formarme con mentores destacados, incluyendo al profesor <a href="https://brownlab.pratt.duke.edu/" target="_blank" rel="noopener noreferrer" style="color:var(--color-qec);text-decoration:none;">Kenneth R. Brown</a>, mi director de doctorado, y al profesor <a href="https://mueller.fz-juelich.de/" target="_blank" rel="noopener noreferrer" style="color:var(--color-qec);text-decoration:none;">Markus Müller</a>, mi asesor postdoctoral.',
                     links: {
                         scholar: 'https://scholar.google.com/citations?user=XMla-DIAAAAJ&sortby=pubdate',
                         linkedin: 'https://www.linkedin.com/in/mauricio-guti%C3%A9rrez-36115b40/',
                         orcid: 'https://orcid.org/0000-0002-0826-3521',
                         email: 'mauricio.gutierrez@ucr.ac.cr',
-                        phone: '+50625116061'
+                        phone: '+50683206068'
                     }
                 },
-                tu: {
+                ignacio: {
                     name: 'J. Ignacio Borge (Nacho)',
-                    role: 'Postdoctoral Researcher · UCR',
-                    bio: 'Doctor en Química Computacional de Materiales en Estado Sólido por Bar-Ilan University. Trabaja en la intersección entre física, química e inteligencia artificial: usa cálculos de primeros principios (DFT) y redes neuronales de grafos (GNN) para diseñar y entender materiales 2D magnéticos —con énfasis en MXenes, espintrónica y catálisis. Su formación doctoral estuvo guiada por el profesor <a href="https://cris.iucc.ac.il/en/persons/ilya-grinberg/" target="_blank" rel="noopener noreferrer" style="color:var(--color-cmp);text-decoration:none;">Ilya Grinberg</a>. Realizó además un posdoctorado en la University of Alabama at Birmingham, donde estudió películas delgadas ferroeléctricas de HfO₂.',
+                    role_en: 'Postdoctoral Researcher · UCR',
+                    role_es: 'Investigador Postdoctoral · UCR',
+                    bio_en: 'PhD in Computational Chemistry of Solid State Materials from Bar-Ilan University. He works at the intersection of physics, chemistry and artificial intelligence: he uses first-principles calculations (DFT) and graph neural networks (GNN) to design and understand 2D magnetic materials —with emphasis on MXenes, spintronics and catalysis. His doctoral training was guided by professor <a href="https://cris.iucc.ac.il/en/persons/ilya-grinberg/" target="_blank" rel="noopener noreferrer" style="color:var(--color-cmp);text-decoration:none;">Ilya Grinberg</a>. He also held a postdoc at the University of Alabama at Birmingham, where he studied ferroelectric HfO₂ thin films.',
+                    bio_es: 'Doctor en Química Computacional de Materiales en Estado Sólido por Bar-Ilan University. Trabaja en la intersección entre física, química e inteligencia artificial: usa cálculos de primeros principios (DFT) y redes neuronales de grafos (GNN) para diseñar y entender materiales 2D magnéticos —con énfasis en MXenes, espintrónica y catálisis. Su formación doctoral estuvo guiada por el profesor <a href="https://cris.iucc.ac.il/en/persons/ilya-grinberg/" target="_blank" rel="noopener noreferrer" style="color:var(--color-cmp);text-decoration:none;">Ilya Grinberg</a>. Realizó además un posdoctorado en la University of Alabama at Birmingham, donde estudió películas delgadas ferroeléctricas de HfO₂.',
                     links: {
                         scholar: 'https://scholar.google.com/citations?user=BnC-tAMAAAAJ&sortby=pubdate',
                         linkedin: 'https://www.linkedin.com/in/j-ignacio-borge-b518a137/',
@@ -1766,8 +1928,10 @@
                 },
                 luis: {
                     name: 'Luis Alejandro Arrieta Araya',
-                    role: 'Investigador · UCR',
-                    bio: 'Ingeniero Químico y Docente. Investigación en ciencia de materiales computacional mediante teoría de la funcional de la densidad (DFT).',
+                    role_en: 'Researcher · UCR',
+                    role_es: 'Investigador · UCR',
+                    bio_en: 'Chemical Engineer and Lecturer. Research in computational materials science using density functional theory (DFT).',
+                    bio_es: 'Ingeniero Químico y Docente. Investigación en ciencia de materiales computacional mediante teoría de la funcional de la densidad (DFT).',
                     links: {
                         scholar: 'https://scholar.google.com/citations?user=2k-whDwAAAAJ&hl=en',
                         linkedin: 'https://www.linkedin.com/in/luisale0308/',
@@ -1775,23 +1939,51 @@
                         email: 'luis.arrietaaraya@ucr.ac.cr'
                     }
                 },
-                est1: {
+                guillermo: {
                     name: 'Guillermo Escobar',
-                    role: 'Estudiante de Doctorado (QEC)',
-                    bio: 'Proyecto: Implementación de códigos cuánticos en hardware superconductor. Intereses: códigos LDPC cuánticos, decodificadores eficientes, simulación de circuitos con ruido.',
-                    links: {}
+                    role_en: 'Undergraduate Student (QEC)',
+                    role_es: 'Estudiante de Licenciatura (QEC)',
+                    bio_en: 'Project: Implementation of quantum codes on superconducting hardware. Interests: quantum LDPC codes, efficient decoders, noisy circuit simulation.',
+                    bio_es: 'Proyecto: Implementación de códigos cuánticos en hardware superconductor. Intereses: códigos LDPC cuánticos, decodificadores eficientes, simulación de circuitos con ruido.',
+                    links: {
+                        scholar: 'https://inspirehep.net/authors/2765053',
+                        orcid: 'https://orcid.org/0009-0009-7061-6824',
+                        email: 'GUILLERMO.ESCOBAR@ucr.ac.cr'
+                    }
                 },
-                est2: {
+                daniel: {
                     name: 'Daniel Serrano',
-                    role: 'Estudiante de Maestría (CMP — Espintrónica)',
-                    bio: 'Proyecto: Simulación de skyrmions magnéticos en materiales 2D. Intereses: texturas magnéticas, dispositivos espintrónicos, dicalcogenuros de metales de transición.',
-                    links: {}
+                    role_en: 'Researcher (former member)',
+                    role_es: 'Investigador (Ex-miembro)',
+                    bio_en: 'PhD candidate at the Niels Bohr Institute. MSc in Mathematical and Theoretical Physics by the University of Oxford. Full-stack error correction.',
+                    bio_es: 'Candidato doctoral en el Instituto Niels Bohr. MSc en Física Matemática y Teórica por la Universidad de Oxford. Corrección de errores full-stack.',
+                    links: {
+                        scholar: 'https://scholar.google.com/citations?user=bBn1sD8AAAAJ&hl=en&oi=sra',
+                        linkedin: 'https://www.linkedin.com/in/daniel-serrano-/',
+                        orcid: 'https://orcid.org/0009-0007-1160-882X',
+                        email: 'daniel.serranodelgado@ucr.ac.cr'
+                    }
                 },
-                est3: {
+                marcos: {
                     name: 'Marcos Jiménez',
-                    role: 'Estudiante de Licenciatura (Sensado)',
-                    bio: 'Proyecto: Sensado cuántico con centros NV en diamante. Intereses: detección de campos magnéticos a nanoescala, óptica cuántica, materiales para sensado.',
-                    links: {}
+                    role_en: 'Undergraduate Student (Sensing)',
+                    role_es: 'Estudiante de Licenciatura (Sensado)',
+                    bio_en: 'Project: Error correction in biased noise models.',
+                    bio_es: 'Proyecto: corrección de errores en modelos de ruido sesgado.',
+                    links: {
+                        linkedin: 'https://www.linkedin.com/in/mjm-ucr/'
+                    }
+                },
+                miguel: {
+                    name: 'Miguel Araya',
+                    role_en: "Master's Student (Simulation)",
+                    role_es: 'Estudiante de Maestría (Simulación)',
+                    bio_en: 'Project: Quantum simulation of chemical systems.',
+                    bio_es: 'Proyecto: Simulación cuántica de sistemas químicos.',
+                    links: {
+                        linkedin: 'https://www.linkedin.com/in/miguel-araya-64a0bb251/',
+                        email: 'MIGUEL.ARAYAJAMES@ucr.ac.cr'
+                    }
                 },
             };
 
@@ -1841,8 +2033,8 @@
                     lastFocusedCard = card;
 
                     modalName.textContent = data.name;
-                    modalRole.textContent = data.role;
-                    modalBio.innerHTML    = data.bio;
+                    modalRole.textContent = personRole(data);
+                    modalBio.innerHTML    = personBio(data);
 
                     let linksHtml = '';
                     if (data.links.scholar) {
@@ -1981,7 +2173,7 @@
             ).forEach(el => el.classList.add('reveal'));
 
             // Stagger siblings within grids and lists
-            document.querySelectorAll('.research-pillars, .team-grid-right, .pub-list').forEach(container => {
+            document.querySelectorAll('.research-pillars, .team-grid-right, .former-grid, .pub-list').forEach(container => {
                 container.querySelectorAll('.reveal').forEach((el, i) => {
                     el.style.setProperty('--reveal-delay', `${i * 0.1}s`);
                 });
