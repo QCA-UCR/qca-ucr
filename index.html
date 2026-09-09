@@ -567,17 +567,24 @@
             gap: 3rem;
         }
 
+        /* Default (phone): static so title scrolls away and never overlaps cards */
+        .team-intro {
+            position: static;
+        }
+
         @media (min-width: 900px) {
             .team-split-layout {
                 grid-template-columns: 0.8fr 1.2fr;
                 gap: 5rem;
                 align-items: start;
             }
-        }
 
-        .team-intro {
-            position: sticky;
-            top: 6rem;
+            /* Desktop only: sticky sidebar while member grid scrolls */
+            .team-intro {
+                position: sticky;
+                top: 6rem;
+                align-self: start;
+            }
         }
 
         /* Override default h2 styles for the large team heading */
